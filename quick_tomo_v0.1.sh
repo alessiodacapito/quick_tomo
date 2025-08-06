@@ -42,7 +42,7 @@ find "$project_path"/Runs/ -type d -name "*_ProtImodCtfCorrection" | while read 
         echo "      Output:     $output_file"
 
         # Run AreTomo command
-        "$HOME/AreTomo_1.3.4_Cuda118_Feb22_2023" \
+        "$HOME/quick_tomo/AreTomo_1.3.4_Cuda118_Feb22_2023" \
           -inmrc "$mrcs_file" \
           -outmrc "$output_file" \
           -AngFile "$tlt_file" \
