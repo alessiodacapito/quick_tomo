@@ -18,4 +18,11 @@ If youare running another type of installaiton please modify the script accoring
 
 Use quick_tomo.sh to lunch the reconstruction with these tested and running parameters. We don't use Aretomo inside scipion because when I tested it (updated on 6th August 2025) it was not working well on my system. 
 
+## How to run quick_tomo
+
+./quick_tomo_v0.1.sh 
+Then fill up the requiested fields 
+  - absolute path of your scipion project
+  - output directory where you want your tomos to be reconstructed
+
 Enjoy your bin 4 tomograms !!!
