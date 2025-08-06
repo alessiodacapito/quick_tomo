@@ -1,15 +1,27 @@
 #!/bin/bash
 
-# Prompt user for the base Scipion project directory
+# Add AreTomo binary location to PATH (or use full path below)
+export PATH="$HOME:$PATH"
+
+# Prompt user for Scipion project directory
 read -rp "Enter the full path to your Scipion project directory: " project_path
 
-# Check if directory exists
+# Validate input
 if [[ ! -d "$project_path" ]]; then
     echo "Error: Directory does not exist: $project_path"
     exit 1
 fi
 
-# Find all *_ProtImodCtfCorrection/extra/ subdirectories
+# Prompt user for output directory
+read -rp "Enter the path to the output directory (where reconstructed tomograms will be saved): " output_dir
+
+# Create output directory if it doesn't exist
+mkdir -p "$output_dir" || {
+    echo "Error: Could not create or access output directory: $output_dir"
+    exit 1
+}
+
+# Find all *_ProtImodCtfCorrection/extra/ directories
 find "$project_path"/Runs/ -type d -name "*_ProtImodCtfCorrection" | while read -r prot_dir; do
     extra_dir="$prot_dir/extra"
     if [[ ! -d "$extra_dir" ]]; then
@@ -32,24 +44,32 @@ find "$project_path"/Runs/ -type d -name "*_ProtImodCtfCorrection" | while read 
             continue
         fi
 
-        # Build output filename
+        # Build output filenames
         base_name=$(basename "$mrcs_file" .mrcs)
-        output_file="$ts_dir/${base_name}_tomoRecon.mrc"
+        temp_output="$ts_dir/${base_name}_tomoRecon.mrc"
+        final_output="$output_dir/${base_name}_tomoRecon.mrc"
 
         echo "    Running AreTomo on:"
         echo "      Input MRCS: $mrcs_file"
         echo "      Angle File: $tlt_file"
-        echo "      Output:     $output_file"
+        echo "      Temp Output: $temp_output"
+        echo "      Final Output: $final_output"
 
-        # Run AreTomo command
+        # Run AreTomo
         "$HOME/quick_tomo/AreTomo_1.3.4_Cuda118_Feb22_2023" \
           -inmrc "$mrcs_file" \
-          -outmrc "$output_file" \
+          -outmrc "$temp_output" \
           -AngFile "$tlt_file" \
           -AlignZ 250 -VolZ 1400 -OutBin 4 \
           -Gpu 0,1,2,3 -FlipVol 1 -Wbp 1 -DarkTol 0
 
-        echo "    Done."
+        # Move result to output directory
+        if [[ -f "$temp_output" ]]; then
+            mv "$temp_output" "$final_output"
+            echo "    Saved to: $final_output"
+        else
+            echo "    Error: AreTomo output not found: $temp_output"
+        fi
     done
 done
 
