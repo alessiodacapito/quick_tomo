@@ -20,9 +20,11 @@ Use quick_tomo.sh to lunch the reconstruction with these tested and running para
 
 ## How to run quick_tomo
 
+From the quick_tomo directory (word of advice, put it in your home)
+
 ./quick_tomo_v0.1.sh 
 Then fill up the requiested fields 
   - absolute path of your scipion project
-  - output directory where you want your tomos to be reconstructed
+  - absolute path to output directory where you want your tomos to be reconstructed
 
 Enjoy your bin 4 tomograms !!!
