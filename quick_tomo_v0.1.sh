@@ -1,21 +1,25 @@
 #!/bin/bash
 
-# Add AreTomo binary location to PATH (or use full path below)
+#add AreTomo binary location to PATH (or use full path below)
 export PATH="$HOME:$PATH"
 
-# Prompt user for Scipion project directory
-read -rp "Enter the full path to your Scipion project directory: " project_path
+#prompt user for Scipion project directory
+read -rp "Enter the full path to your Scipion project: " project_path
 
-# Validate input
+#validate input
 if [[ ! -d "$project_path" ]]; then
     echo "Error: Directory does not exist: $project_path"
     exit 1
 fi
 
-# Prompt user for output directory
+#prompt user for output directory
 read -rp "Enter the path to the output directory (where reconstructed tomograms will be saved): " output_dir
 
-# Create output directory if it doesn't exist
+#prompt user for bin facor
+
+read -rp "Chose your binnig factor by taking into account if you have already binned at motioncorr:" bin_factor
+
+#create output directory if it doesn't exist
 mkdir -p "$output_dir" || {
     echo "Error: Could not create or access output directory: $output_dir"
     exit 1
@@ -60,8 +64,8 @@ find "$project_path"/Runs/ -type d -name "*_ProtImodCtfCorrection" | while read 
           -inmrc "$mrcs_file" \
           -outmrc "$temp_output" \
           -AngFile "$tlt_file" \
-          -AlignZ 250 -VolZ 1400 -OutBin 4 \
-          -Gpu 0,1,2,3 -FlipVol 1 -Wbp 1 -DarkTol 0
+          -AlignZ 250 -VolZ 1400 -OutBin "$bin_factor" \
+          -Gpu 0 -FlipVol 1 -Wbp 1 -DarkTol 0
 
         # Move result to output directory
         if [[ -f "$temp_output" ]]; then
@@ -73,4 +77,4 @@ find "$project_path"/Runs/ -type d -name "*_ProtImodCtfCorrection" | while read 
     done
 done
 
-echo "All tilt series processed."
+echo "quick_tomo finished all reconstructions, enjoy!"
