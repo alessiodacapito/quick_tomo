@@ -1,5 +1,5 @@
 
-<img width="277" height="227" alt="Asset 3" src="https://github.com/user-attachments/assets/fe01b4ee-a694-4b94-89be-2b898186fd2d" />
+<img width="270" height="216" alt="Asset 3" src="https://github.com/user-attachments/assets/fe01b4ee-a694-4b94-89be-2b898186fd2d" />
 
 
 # QuickTomo
