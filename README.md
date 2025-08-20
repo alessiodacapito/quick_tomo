@@ -1,4 +1,9 @@
-# quick_tomo
+
+<img width="277" height="227" alt="Asset 3" src="https://github.com/user-attachments/assets/fe01b4ee-a694-4b94-89be-2b898186fd2d" />
+
+
+# QuickTomo
+
 quick and dirty way to get your freshly collected tomograms reconstructed 
 
 Welcome to QuickTomo, a simple and no brainer way to reconstruct your freshly collected tomograms! QuickTomo is made for simple reconstruction of binned tomograms for quality check, this provides everything you need to get an idea of what is in your sample from raw microscope output. 
