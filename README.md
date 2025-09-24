@@ -17,7 +17,7 @@ Scipion installation with the following plugins:
   - ctffinfd 
   - imod 
 
-A GPU with a conda version > 10 
+A GPU with a cuda version > 10 
 
 ## Quick start
 
