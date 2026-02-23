@@ -4,35 +4,50 @@
 
 # QuickTomo
 
-quick and dirty way to get your freshly collected tomograms reconstructed 
-
 Welcome to QuickTomo, a simple and no brainer way to reconstruct your freshly collected tomograms! QuickTomo is made for simple reconstruction of binned tomograms for quality check, this provides everything you need to get an idea of what is in your sample from raw microscope output. 
 
 Detailed instructions on the usage are provided in the tutorial PDF. 
 
 ## Requirements 
 
-Scipion installation with the following plugins:
+QuickTomo is not a standalone! It uses Scipion3 for preprocessing.
+You need a Scipion installation with the following plugins:
   - motioncorr 
-  - ctffinfd 
+  - ctffinfd4
   - imod 
 
-A GPU with a cuda version > 10 
+Note: the provided AreTomo executable is compiled for 11.8. It works fine (for us at least) on 10, 11 and 12 but does not work on 13.
+
+## Installation 
+
+Get all the files with 
+
+```
+cd ~
+git clone https://github.com/alessiodacapito/quick_tomo.git
+```
 
 ## Quick start
 
 Open Scipion, import the provided workflow, fill out all of your parameters for all the steps of preprocessig in scipion and let it rip !!
+Don't forget to take note of the path of your Scipion project!!
 
-Once it's over, use QuickTomo to launch the Aretomo reconstruction with our tested and running parameters. We don't use Aretomo inside scipion because when I tested it (updated on 6th August 2025) it was not working well on my system. 
+Once it's over, launch QuickTomo to reconstruct your tomos with our Aretomo secret recipe! 
 
-## How to run quick_tomo
+```
+./quick_tomo_v0.2.2.sh 
+```
 
-From the quick_tomo directory (word of advice, put it in your home)
+Then fill up the requiested fields !
 
-./quick_tomo_v0.1.sh 
-Then fill up the requiested fields 
-  - absolute path of your scipion project
-  - absolute path to output directory where you want your tomos to be reconstructed
-  - chose your binning factor (4 recommended for data quiality check)
+### NEW for version 0.2.2:
+  - choose your own binning factor
+  - generate (or not) even/odd half tomograms to train your favourite denoising software
 
-Enjoy your tomograms !!!
+
+Please reach out if you want new features added !!
+
+
+
+Happy processing !!!
+
